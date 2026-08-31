@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura de Esencias - Catálogo de Perfumería</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- Header Semántico -->
+    <header class="header-principal">
+        <div class="header-contenido">
+            <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=100&auto=format&fit=crop&q=80" alt="Frasco elegante de perfume sobre fondo minimalista" class="logo-img">
+            <div>
+                <h1>Aura de Esencias</h1>
+                <p>Catálogo exclusivo de fragancias y perfumes</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de navegación semántica -->
+    <nav class="nav-principal">
+        <ul>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#registro">Registrar Perfume</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <main class="contenedor-principal">
+        
+        <!-- Sección del Formulario (4 campos variados, labels y required) -->
+        <section id="registro" class="seccion-formulario">
+            <h2>Agregar Nuevo Perfume</h2>
+            <form id="form-perfume">
+                
+                <div class="grupo-input">
+                    <label for="input-nombre">Nombre del Perfume:</label>
+                    <input type="text" id="input-nombre" placeholder="Ej. Bois Imperial" required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="input-precio">Precio ($):</label>
+                    <input type="number" id="input-precio" placeholder="Ej. 150000" min="1" required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="select-familia">Familia Olfativa:</label>
+                    <select id="select-familia">
+                        <option value="Amaderada">Amaderada</option>
+                        <option value="Cítrica">Cítrica</option>
+                        <option value="Floral">Floral</option>
+                        <option value="Oriental">Oriental</option>
+                    </select>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="input-contacto">Correo de contacto / Proveedor:</label>
+                    <input type="email" id="input-contacto" placeholder="proveedor@esencias.com" required>
+                </div>
+
+                <button type="submit" id="btn-guardar">Añadir al Catálogo</button>
+            </form>
+        </section>
+
+        <!-- Sección del Listado (Flexbox Contenedor 2) -->
+        <section id="catalogo" class="seccion-listado">
+            <h2>Fragancias Disponibles</h2>
+            <div id="contenedor-perfumes" class="grid-catalogo">
+                <!-- Las tarjetas de perfumes se inyectarán dinámicamente con JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Semántico -->
+    <footer class="footer-principal">
+        <div class="footer-contenido">
+            <p>&copy; <span id="span-anio"></span> - Juan David Ahumada. Todos los derechos reservados.</p>
+            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=100&auto=format&fit=crop&q=80" alt="Detalle minimalista de frasco de perfume" class="footer-img">
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
