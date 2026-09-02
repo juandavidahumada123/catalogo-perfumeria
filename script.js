@@ -40,6 +40,7 @@ const modalCarrito = document.getElementById('modal-carrito');
 const cerrarCarrito = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
+const formContacto = document.getElementById('form-contacto');
 
 function cargarCatalogo() {
     contenedorTarjetas.innerHTML = "";
@@ -88,7 +89,7 @@ function actualizarCarrito() {
 
     carrito.forEach((item) => {
         const li = document.createElement('li');
-        li.textContent = `${item.nombre} - $${item.precio.toLocaleString('es-CO')}`;
+        li.textContent = `${item.nombre} -$${item.precio.toLocaleString('es-CO')}`;
         listaCarrito.appendChild(li);
         total += item.precio;
     });
@@ -104,12 +105,7 @@ cerrarCarrito.addEventListener('click', () => {
     modalCarrito.classList.add('oculto');
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    cargarCatalogo();
-});
 // Validación del formulario con preventDefault
-const formContacto = document.getElementById('form-contacto');
-
 if (formContacto) {
     formContacto.addEventListener('submit', (evento) => {
         evento.preventDefault();
@@ -126,3 +122,7 @@ if (formContacto) {
         formContacto.reset();
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarCatalogo();
+});

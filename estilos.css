@@ -118,11 +118,56 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: background 0.3s, color 0.3s;
+    width: 100%;
 }
 
 .btn-agregar:hover {
     background-color: var(--bg-color);
     color: var(--text-color);
+}
+
+/* Sección de Formulario */
+.seccion-contacto {
+    padding: 4rem 5%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-top: 1px solid #ddd;
+}
+
+.seccion-contacto h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.campo-form {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.campo-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.campo-form input, .campo-form select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+}
+
+.checkbox-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.checkbox-container input {
+    width: 18px;
+    height: 18px;
 }
 
 /* Modal del Carrito */
@@ -174,6 +219,7 @@ body {
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-top: 1rem;
+    width: 100%;
 }
 
 footer {
