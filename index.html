@@ -3,85 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura de Esencias - Catálogo de Perfumería</title>
+    <title>ECLAT | Catálogo de Perfumería</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
-    <!-- Header Semántico -->
     <header class="header-principal">
-        <div class="header-contenido">
-            <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=100&auto=format&fit=crop&q=80" alt="Frasco elegante de perfume sobre fondo minimalista" class="logo-img">
-            <div>
-                <h1>Aura de Esencias</h1>
-                <p>Catálogo exclusivo de fragancias y perfumes</p>
-            </div>
+        <div class="logo-container">
+            <h1>ECLAT</h1>
+            <p>Alta Perfumería & Tendencias</p>
         </div>
+        <nav class="nav-bar">
+            <a href="#catalogo">Catálogo</a>
+            <a href="https://www.instagram.com/eclat.quilla" target="_blank" class="instagram-link">
+                📸 @eclat.quilla
+            </a>
+            <div id="carrito-icono" class="carrito-btn">🛒 Carrito (<span id="contador-carrito">0</span>)</div>
+        </nav>
     </header>
 
-    <!-- Barra de navegación semántica -->
-    <nav class="nav-principal">
-        <ul>
-            <li><a href="#catalogo">Catálogo</a></li>
-            <li><a href="#registro">Registrar Perfume</a></li>
-        </ul>
-    </nav>
-
-    <!-- Main -->
-    <main class="contenedor-principal">
-        
-        <!-- Sección del Formulario (4 campos variados, labels y required) -->
-        <section id="registro" class="seccion-formulario">
-            <h2>Agregar Nuevo Perfume</h2>
-            <form id="form-perfume">
-                
-                <div class="grupo-input">
-                    <label for="input-nombre">Nombre del Perfume:</label>
-                    <input type="text" id="input-nombre" placeholder="Ej. Bois Imperial" required>
-                </div>
-
-                <div class="grupo-input">
-                    <label for="input-precio">Precio ($):</label>
-                    <input type="number" id="input-precio" placeholder="Ej. 150000" min="1" required>
-                </div>
-
-                <div class="grupo-input">
-                    <label for="select-familia">Familia Olfativa:</label>
-                    <select id="select-familia">
-                        <option value="Amaderada">Amaderada</option>
-                        <option value="Cítrica">Cítrica</option>
-                        <option value="Floral">Floral</option>
-                        <option value="Oriental">Oriental</option>
-                    </select>
-                </div>
-
-                <div class="grupo-input">
-                    <label for="input-contacto">Correo de contacto / Proveedor:</label>
-                    <input type="email" id="input-contacto" placeholder="proveedor@esencias.com" required>
-                </div>
-
-                <button type="submit" id="btn-guardar">Añadir al Catálogo</button>
-            </form>
-        </section>
-
-        <!-- Sección del Listado (Flexbox Contenedor 2) -->
-        <section id="catalogo" class="seccion-listado">
-            <h2>Fragancias Disponibles</h2>
-            <div id="contenedor-perfumes" class="grid-catalogo">
-                <!-- Las tarjetas de perfumes se inyectarán dinámicamente con JavaScript -->
+    <main>
+        <section id="catalogo" class="seccion-catalogo">
+            <h2>Referencias en Tendencia</h2>
+            <div id="contenedor-tarjetas" class="grid-productos">
+                <!-- Las tarjetas se cargarán dinámicamente desde JavaScript -->
             </div>
         </section>
 
+        <!-- Modal del Carrito -->
+        <div id="modal-carrito" class="modal oculto">
+            <div class="modal-contenido">
+                <h3>Tu Carrito de Compras</h3>
+                <ul id="lista-carrito"></ul>
+                <p id="total-carrito">Total: $0</p>
+                <button id="cerrar-carrito" class="btn-cerrar">Cerrar</button>
+            </div>
+        </div>
     </main>
 
-    <!-- Footer Semántico -->
-    <footer class="footer-principal">
-        <div class="footer-contenido">
-            <p>&copy; <span id="span-anio"></span> - Juan David Ahumada. Todos los derechos reservados.</p>
-            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=100&auto=format&fit=crop&q=80" alt="Detalle minimalista de frasco de perfume" class="footer-img">
-        </div>
+    <footer>
+        <p>&copy; 2026 ECLAT. Todos los derechos reservados. Barranquilla, Colombia.</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+<!-- Sección de Contacto / Formulario obligatorio para el parcial -->
+        <section class="seccion-contacto">
+            <h2>Contáctanos</h2>
+            <form id="form-contacto">
+                <div class="campo-form">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="interes">Fragancia de interés:</label>
+                    <select id="interes" name="interes" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="9pm">Afnan 9PM</option>
+                        <option value="khamrah">Lattafa Khamrah</option>
+                        <option value="jeanpaul">JPG Le Male Le Parfum</option>
+                        <option value="sauvage">Dior Sauvage</option>
+                        <option value="asad">Lattafa Asad</option>
+                    </select>
+                </div>
+
+                <div class="campo-form checkbox-container">
+                    <input type="checkbox" id="terminos" name="terminos" required>
+                    <label for="terminos">Acepto recibir información y promociones</label>
+                </div>
+
+                <button type="submit" class="btn-agregar">Enviar Mensaje</button>
+            </form>
+        </section>

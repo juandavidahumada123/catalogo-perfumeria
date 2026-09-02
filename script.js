@@ -1,115 +1,128 @@
-// 1. Año dinámico en el footer con querySelector
-const spanAnio = document.querySelector('#span-anio');
-if (spanAnio) {
-    spanAnio.textContent = new Date().getFullYear();
-}
-
-// 2. Modelo de datos en memoria (Arreglo de objetos)
-let perfumes = [
-    { id: 1, nombre: "Bois Imperial (Nota Inicial)", precio: 180000, familia: "Amaderada", contacto: "ventas@esencias.com" }
+const perfumes = [
+    {
+        id: 1,
+        nombre: "Afnan 9PM",
+        precio: 120000,
+        imagen: "9pm.jpeg"
+    },
+    {
+        id: 2,
+        nombre: "Lattafa Khamrah",
+        precio: 120000,
+        imagen: "khamrah.jpeg"
+    },
+    {
+        id: 3,
+        nombre: "JPG Le Male Le Parfum",
+        precio: 120000,
+        imagen: "jeanpaul.jpeg"
+    },
+    {
+        id: 4,
+        nombre: "Dior Sauvage",
+        precio: 120000,
+        imagen: "sauvage.jpeg"
+    },
+    {
+        id: 5,
+        nombre: "Lattafa Asad",
+        precio: 120000,
+        imagen: "asad.jpeg"
+    }
 ];
 
-// Selección de elementos del DOM
-const formPerfume = document.querySelector('#form-perfume');
-const inputNombre = document.querySelector('#input-nombre');
-const inputPrecio = document.querySelector('#input-precio');
-const selectFamilia = document.querySelector('#select-familia');
-const inputContacto = document.querySelector('#input-contacto');
-const contenedorPerfumes = document.querySelector('#contenedor-perfumes');
+let carrito = [];
 
-// Renderizar el elemento inicial de ejemplo al cargar la página
-renderizarCatalogo();
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas');
+const contadorCarrito = document.getElementById('contador-carrito');
+const carritoIcono = document.getElementById('carrito-icono');
+const modalCarrito = document.getElementById('modal-carrito');
+const cerrarCarrito = document.getElementById('cerrar-carrito');
+const listaCarrito = document.getElementById('lista-carrito');
+const totalCarrito = document.getElementById('total-carrito');
 
-// 3. Manejo de eventos: submit con preventDefault y validación básica
-formPerfume.addEventListener('submit', function(evento) {
-    evento.preventDefault(); // Evita que la página se recargue
+function cargarCatalogo() {
+    contenedorTarjetas.innerHTML = "";
+    
+    perfumes.forEach(perfume => {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-    const nombreVal = inputNombre.value.trim();
-    const precioVal = inputPrecio.value.trim();
-    const familiaVal = selectFamilia.value;
-    const contactoVal = inputContacto.value.trim();
-
-    // Validación básica de campos vacíos
-    if (nombreVal === "" || precioVal === "" || contactoVal === "") {
-        alert("Por favor, completa todos los campos del formulario.");
-        return;
-    }
-
-    // Crear el nuevo objeto perfume
-    const nuevoPerfume = {
-        id: Date.now(),
-        nombre: nombreVal,
-        precio: Number(precioVal),
-        familia: familiaVal,
-        contacto: contactoVal
-    };
-
-    // Agregar al modelo de datos en memoria
-    perfumes.push(nuevoPerfume);
-
-    // Limpiar formulario y enfocar el primer input
-    formPerfume.reset();
-    inputNombre.focus();
-
-    // Actualizar la interfaz
-    renderizarCatalogo();
-});
-
-// 4. Función que recorre el arreglo y genera elementos con createElement + appendChild
-function renderizarCatalogo() {
-    contenedorPerfumes.innerHTML = "";
-
-    if (perfumes.length === 0) {
-        contenedorPerfumes.innerHTML = "<p>No hay perfumes registrados en el catálogo.</p>";
-        return;
-    }
-
-    perfumes.forEach(function(perfume) {
-        // Crear elementos del DOM
-        const tarjeta = document.createElement('div');
-        tarjeta.classList.add('tarjeta-perfume');
-
-        const infoDiv = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = perfume.imagen;
+        img.alt = perfume.nombre;
 
         const h3 = document.createElement('h3');
         h3.textContent = perfume.nombre;
 
-        const pDetalles = document.createElement('p');
-        pDetalles.textContent = `Familia: ${perfume.familia} | Precio: $${perfume.precio}`;
-        pDetalles.style.fontSize = "0.9rem";
+        const p = document.createElement('p');
+        p.textContent = `$${perfume.precio.toLocaleString('es-CO')}`;
 
-        const pContacto = document.createElement('p');
-        pContacto.textContent = `Contacto: ${perfume.contacto}`;
-        pContacto.style.fontSize = "0.8rem";
-        pContacto.style.color = "#64748b";
-
-        // Ensamblar la información usando appendChild
-        infoDiv.appendChild(h3);
-        infoDiv.appendChild(pDetalles);
-        infoDiv.appendChild(pContacto);
-
-        // Botón de eliminar
-        const btnEliminar = document.createElement('button');
-        btnEliminar.textContent = "Eliminar";
-
-        // Evento click para eliminar del arreglo y actualizar la vista
-        btnEliminar.addEventListener('click', function() {
-            eliminarPerfume(perfume.id);
+        const btn = document.createElement('button');
+        btn.classList.add('btn-agregar');
+        btn.textContent = "Agregar al Carrito";
+        
+        btn.addEventListener('click', () => {
+            agregarAlCarrito(perfume);
         });
 
-        // Ensamblar tarjeta final
-        tarjeta.appendChild(infoDiv);
-        tarjeta.appendChild(btnEliminar);
+        card.appendChild(img);
+        card.appendChild(h3);
+        card.appendChild(p);
+        card.appendChild(btn);
 
-        // Agregar al contenedor principal
-        contenedorPerfumes.appendChild(tarjeta);
+        contenedorTarjetas.appendChild(card);
     });
 }
 
-// Función para eliminar perfume del arreglo
-function eliminarPerfume(id) {
-    perfumes = perfumes.filter(function(perfume) {
-        return perfume.id !== id;
+function agregarAlCarrito(perfume) {
+    carrito.push(perfume);
+    actualizarCarrito();
+}
+
+function actualizarCarrito() {
+    contadorCarrito.textContent = carrito.length;
+    
+    listaCarrito.innerHTML = "";
+    let total = 0;
+
+    carrito.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nombre} - $${item.precio.toLocaleString('es-CO')}`;
+        listaCarrito.appendChild(li);
+        total += item.precio;
     });
-    renderizarCatalogo();
+
+    totalCarrito.textContent = `Total: $${total.toLocaleString('es-CO')}`;
+}
+
+carritoIcono.addEventListener('click', () => {
+    modalCarrito.classList.remove('oculto');
+});
+
+cerrarCarrito.addEventListener('click', () => {
+    modalCarrito.classList.add('oculto');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarCatalogo();
+});
+// Validación del formulario con preventDefault
+const formContacto = document.getElementById('form-contacto');
+
+if (formContacto) {
+    formContacto.addEventListener('submit', (evento) => {
+        evento.preventDefault();
+        
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (nombre === "" || email === "") {
+            alert("Por favor completa los campos obligatorios.");
+            return;
+        }
+
+        alert(`¡Gracias por tu mensaje, ${nombre}! Nos pondremos en contacto pronto.`);
+        formContacto.reset();
+    });
 }
